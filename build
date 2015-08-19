@@ -1,0 +1,7 @@
+#! /usr/bin/env sh
+
+# make the document
+pandoc -s -f markdown+pandoc_title_block -o metastructure.pdf metastructure.md
+
+# return exit code
+exit $?
