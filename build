@@ -1,7 +1,14 @@
 #! /usr/bin/env sh
 
+./fix_bib
+
 # make the document
-pandoc -s -f markdown+pandoc_title_block -o metastructure.pdf metastructure.md
+pandoc -s \
+       -f markdown+pandoc_title_block \
+       -V geometry:margin=1in \
+       --bibliography=bib.bib \
+       -o metastructure.pdf \
+       metastructure.md
 
 # return exit code
 exit $?

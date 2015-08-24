@@ -1,0 +1,30 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import re
+
+filename = "bib_raw.bib"
+out_filename = "bib.bib"
+
+with open(filename, 'r') as f:
+    text = f.read()
+
+replaces = [(r'Escherichia coli', r'{\it Escherichia coli}'),
+            (r'E. coli', r'{\it E.~coli}'),
+            (r'in silico', r'{\it in silico}'),
+            (r'(NADP?\(?)\+(\)?)', r'\1\\textsuperscript{+}\2'),
+            (r'Corynebacterium glutamicum', r'{\it Corynebacterium glutamicum}'),
+            (r'Saccharomyces cerevisiae', r'{\it Saccharomyces cerevisiae}'),
+            (r'Clostridium acetobutylicum', r'{\it Clostridium acetobutylicum}'),
+            (r'Pichia stipitis', r'{\it Pichia stipitis}'),
+            (r'-->', r'$\\rightarrow$'),
+            (r'file = \{.*\},?\n', r''),
+            (r'url = \{.*\},?\n', r''),
+            (r'annote = \{.*\},?\n', r''),
+            (r'Palsson, Bernhard \\O', r'Palsson, Bernhard {\\O}'),
+            (r'—', '---')]
+for (i, o) in replaces:
+    text = re.compile(i).sub(o, text)
+
+with open(out_filename, 'w') as f:
+    f.write(text)
